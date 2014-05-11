@@ -4,15 +4,12 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="11"
         android:targetSdkVersion="15" />
 
     <application
@@ -20,28 +17,23 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <!--<activity-->
-            <!--android:name="com.gsu.photolauncher.MainActivity"-->
-            <!--android:label="@string/app_name" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
         <service
-        android:name="com.gsu.photolauncher.MainActivity"
-        android:label="@string/app_name" >
-        <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:name="com.gsu.photolauncher.ServiceToUploadImage">
         </service>
 
         <receiver android:name=".RebootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".ImageBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.camera.NEW_PICTURE" />
+                <data android:mimeType="image/*" />
             </intent-filter>
         </receiver>
 
